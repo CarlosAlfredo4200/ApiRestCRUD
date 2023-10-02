@@ -1,1 +1,2 @@
 MONGODB_URL=mongodb+srv://root:juanma4200@cluster0.e8yfmqo.mongodb.net/
+PUBLI_URL=http://localhost:4000 
