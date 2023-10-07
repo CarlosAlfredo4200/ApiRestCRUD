@@ -1,87 +1,89 @@
 import Pedido from "../models/pedidosModels.js";
 
- 
- 
-const CrearPedido = async (req, res) => {
-    const pedido = new Pedido(req.body);
-    try {
-        await pedido.save();
-        res.json({msg: 'Se agregó un pedido'});
-      } catch (error) {
-        console.log(error);
-      }
-};
-
-const MostrarPedido = async (req, res) => {
+const CrearPedido = async (req, res, next) => {
+  const pedido = new Pedido(req.body);
   try {
-    const producto = await Pedido.find({});
-    res.send({ producto });
-     
+    await pedido.save();
+    res.json({ msg: "Se agregó un pedido" });
   } catch (error) {
-    console.error(error);
+    console.log(error);
+    next();
   }
 };
 
-const BuscarPedido = async (req, res) => {
+const MostrarPedidos = async (req, res, next) => {
   try {
-    const { id } = req.params;
-    const data = await pedido.findById(id);
-
-    if (!data) {
-      res.json({ msg: "Ese pedido no existe" });
-    }
-    res.send({ data });
+    const pedido = await Pedido.find({}).populate("cliente").populate({
+      path: "pedido.producto",
+      model: "Productos",
+    });
+    res.json({ pedido });
   } catch (error) {
     console.error(error);
+    next();
+  }
+};
+
+const BuscarPedido = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const pedido = await Pedido.findById(id).populate("cliente").populate({
+      path: "pedido.producto",
+      model: "Productos",
+    });
+
+    if (!pedido) {
+      res.json({ msg: "Pedido no encontrado!" });
+      return next();
+    }
+    res.json({ pedido });
+  } catch (error) {
+    console.error(error);
+    next();
   }
 };
 
 const ActualizarPedido = async (req, res, next) => {
-  const { id } = req.params;
-
-  const pedido = await pedido.findById(id);
-
-  if (!pedido) {
-    const error = new Error("pedido No Encontrado!");
-    return res.status(404).json({ msg: error.message });
-  }
-
-   
-  pedido.nombre = req.body.nombre || pedido.nombre;
-  pedido.precio = req.body.precio || pedido.precio;
-  pedido.filename = req.body.filename || pedido.filename;
-  pedido.url = req.body.url || pedido.url;
-  pedido.descripcion = req.body.descripcion || pedido.descripcion;
-
   try {
-    const pedidoAlmacenado = await pedido.save();
-    res.json(pedidoAlmacenado);
-    res.send({ msg: "Se actualizo correctamente el pedido" });
+    const { id } = req.params;
+    const pedido = await Pedido.findOneAndUpdate({ _id: id }, req.body, {
+      new: true,
+    })
+      .populate("cliente")
+      .populate({
+        path: "pedido.producto",
+        model: "Productos",
+      });
+
+    res.json(pedido);
   } catch (error) {
     console.log(error);
+    next();
   }
 };
 
-const EliminarPedido = async (req, res) => {
+const EliminarPedido = async (req, res, next) => {
   const { id } = req.params;
-
-  const pedido = await pedido.findById(id);
+  const pedido = await Pedido.findById(id);
 
   if (!pedido) {
-    const error = new Error("No Encontrado");
+    const error = new Error("Pedido no encontrado");
     return res.status(404).json({ msg: error.message });
   }
 
   try {
     await pedido.deleteOne();
-    res.json({ msg: "pedido Eliminado correctamente" });
-  } catch (error) {}
-  console.log(error);
+    res.json({ msg: "Pedido eliminado correctamente" });
+  } catch (error) {
+    console.log(error);
+    next();
+
+  }
 };
 
 export {
   CrearPedido,
-  MostrarPedido,
+  MostrarPedidos,
   BuscarPedido,
   ActualizarPedido,
   EliminarPedido,
