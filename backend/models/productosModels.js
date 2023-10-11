@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-import bcrypt from "bcrypt";
+const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
 
 const ProductSchema = mongoose.Schema(
     {
@@ -39,4 +39,4 @@ const ProductSchema = mongoose.Schema(
 
 
 const Producto = mongoose.model("Productos", ProductSchema);
-export default Producto;
+module.exports =  Producto;

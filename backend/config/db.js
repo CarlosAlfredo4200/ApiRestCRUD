@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 const dbconnect = async () => {
   try {
@@ -13,4 +13,4 @@ const dbconnect = async () => {
     process.exit(1);
   }
 };
-export default dbconnect;
+module.exports =  dbconnect;

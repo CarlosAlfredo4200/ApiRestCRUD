@@ -1,20 +1,32 @@
-import express from 'express';
-import 'dotenv/config'
-import dbconnect from './config/db.js';
-import routesClientes from './routes/clientesRoutes.js';
-import routesProductos from './routes/productosRoutes.js';
-import routesPedidos from './routes/pedidosRoutes.js';
+const app = require("./app.js");
+require('dotenv').config()
+const cors = require("cors");
+const dbconnect = require("./config/db.js");
 
-const app = express();
-const port = 4000;
-app.use(express.json());
-app.use(express.static('uploads'));
-
-app.use('/', routesClientes);
-app.use('/', routesProductos);
-app.use('/', routesPedidos);
-
+const NODE_ENV = process.env.NODE_ENV || "development";
+const port = process.env.PORT || 3000;
 dbconnect();
-app.listen(port, (req,res) =>{
+
+// Configurar CORS
+// const whitelist = [process.env.FRONTEND_URL];
+
+// const corsOptions = {
+//   origin: function (origin, callback) {
+//     if (whitelist.includes(origin)) {
+//       // Puede consultar la API
+//       callback(null, true);
+//     } else {
+//       // No esta permitido
+//       callback(new Error("Error de Cors"));
+//     }
+//   },
+// };
+
+// app.use(cors(corsOptions));
+
+if (NODE_ENV !== "test") {
+  app.listen(port, (req, res) => {
     console.log(`Escuchando en el puerto ${port}`);
-})
+  });
+}
+ 

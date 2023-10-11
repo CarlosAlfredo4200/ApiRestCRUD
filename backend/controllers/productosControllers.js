@@ -1,4 +1,4 @@
-import Productos from "../models/productosModels.js";
+const Productos = require("../models/productosModels.js");
 
 const PUBLI_URL = process.env.PUBLI_URL;
 
@@ -87,7 +87,7 @@ const EliminarProducto = async (req, res) => {
   console.log(error);
 };
 
-export {
+module.exports = {
   CrearProducto,
   MostrarProductos,
   BuscarProducto,

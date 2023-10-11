@@ -1,13 +1,13 @@
-import express from "express";
+const express = require("express");
 const router = express.Router();
 
-import {
+const {
   CrearCliente,
   MostrarClientes,
   BuscarCliente,
   ActualizarCliente,
   EliminarCliente
-} from "../controllers/clienteControllers.js";
+} = require("../controllers/clienteControllers.js");
 
 
 router.post("/clientes", CrearCliente);
@@ -16,4 +16,4 @@ router.get("/clientes/:id", BuscarCliente);
 router.put("/clientes/:id", ActualizarCliente);
 router.delete("/clientes/:id", EliminarCliente);
 
-export default router;
+module.exports = router;

@@ -1,16 +1,16 @@
-import express from "express";
+const express = require("express");
 const router = express.Router();
  
 
 
-import {
+const {
       
     CrearPedido,
     MostrarPedidos,
     BuscarPedido,
     ActualizarPedido,
     EliminarPedido
-} from "../controllers/pedidosControllers.js";
+} = require ("../controllers/pedidosControllers.js");
 
 
  
@@ -20,4 +20,4 @@ router.get("/Pedidos/:id", BuscarPedido);
 router.put("/Pedidos/:id", ActualizarPedido);
 router.delete("/Pedidos/:id", EliminarPedido);
 
-export default router;
+module.exports = router;

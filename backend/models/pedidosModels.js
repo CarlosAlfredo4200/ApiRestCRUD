@@ -1,4 +1,5 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
  
 const Schema = mongoose.Schema;
 
@@ -30,4 +31,4 @@ const PedidosSchema = mongoose.Schema(
 
 
 const Pedido = mongoose.model("Pedidos", PedidosSchema);
-export default Pedido;
+module.exports =  Pedido;

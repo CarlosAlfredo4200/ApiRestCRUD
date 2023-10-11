@@ -5,4 +5,4 @@ const GeneradorId = () => {
     return random + fecha;
 }
 
-export default GeneradorId
+module.exports = GeneradorId

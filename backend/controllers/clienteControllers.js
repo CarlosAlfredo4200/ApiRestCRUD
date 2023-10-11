@@ -1,4 +1,4 @@
-import Cliente from "../models/clientesModels.js";
+const Cliente = require("../models/clientesModels.js");
 
 const CrearCliente = async (req, res, next) => {
   const cliente = new Cliente(req.body);
@@ -59,7 +59,7 @@ const EliminarCliente = async (req, res, next) => {
   }
 };
 
-export {
+module.exports = {
   CrearCliente,
   MostrarClientes,
   BuscarCliente,

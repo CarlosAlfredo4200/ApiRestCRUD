@@ -1,6 +1,6 @@
-import multer from "multer";
-import { fileURLToPath } from "url";
-import { dirname } from "path";
+const multer = require("multer");
+const { fileURLToPath } = require("url");
+const { dirname } = require("path");
 
 const CURRENT_DIR = dirname(fileURLToPath(import.meta.url));
 const MIMETYPES = ["image/jpeg", "image/png"];
@@ -26,4 +26,4 @@ const storage = multer.diskStorage({
 
 const uploadMiddleware = multer({ storage });
 
-export default uploadMiddleware;
+module.exports = uploadMiddleware;

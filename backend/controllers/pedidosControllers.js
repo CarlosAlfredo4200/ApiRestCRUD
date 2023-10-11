@@ -1,4 +1,4 @@
-import Pedido from "../models/pedidosModels.js";
+const Pedido = require("../models/pedidosModels.js");
 
 const CrearPedido = async (req, res, next) => {
   const pedido = new Pedido(req.body);
@@ -81,7 +81,7 @@ const EliminarPedido = async (req, res, next) => {
   }
 };
 
-export {
+module.exports = {
   CrearPedido,
   MostrarPedidos,
   BuscarPedido,
