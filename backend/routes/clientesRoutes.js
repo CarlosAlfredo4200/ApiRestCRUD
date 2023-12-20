@@ -3,6 +3,7 @@ const router = express.Router();
 
 const {
   CrearCliente,
+  AutenticarCliente,
   MostrarClientes,
   MostrarClientesMayoresEdad,
   MostrarClientesEdadesYApellido,
@@ -13,6 +14,7 @@ const {
 
 
 router.post("/clientes", CrearCliente);
+router.post("/clientes/login", AutenticarCliente );
 router.get("/clientes", MostrarClientes);
 router.get("/clientes/mayores", MostrarClientesMayoresEdad);
 router.get("/clientes/entre/:edadMinima/:edadMaxima/:apellido", MostrarClientesEdadesYApellido);
@@ -21,3 +23,4 @@ router.put("/clientes/:id", ActualizarCliente);
 router.delete("/clientes/:id", EliminarCliente);
 
 module.exports = router;
+ 
