@@ -14,6 +14,7 @@ const Sidebar = () => {
        
       <Link className='linkNav' to='/'><FaHome className='icons' /><p>Home</p></Link>
       <Link className='linkNav' to='/clientes'><PiUsersThreeBold className='icons' /><p>Clientes</p></Link>
+      <Link className='linkNav' to='/clientes/nuevocliente'><PiUsersThreeBold className='icons' /><p>Nuevo Cliente</p></Link>
       <Link className='linkNav' to='/productos'><RiProductHuntLine className='icons' /><p>Productos</p></Link>
       <Link className='linkNav' to='/pedidos'><BsBorderStyle className='icons' /><p>Pedidos</p></Link>
        

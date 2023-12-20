@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Form } from "react-router-dom";
 // import Alerta from '../components/Alerta'
 // import clienteAxios from '../config/clienteAxios'
 
 const RegistrarCliente = () => {
   const [nombre, setNombre] = useState("");
+  const [apellido, setApellido] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repetirPassword, setRepetirPassword] = useState("");
@@ -13,7 +14,7 @@ const RegistrarCliente = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if ([nombre, email, password, repetirPassword].includes("")) {
+    if ([nombre, apellido, email, password, repetirPassword].includes("")) {
       setAlerta({
         msg: "Todos los campos son obligatorios",
         error: true,
@@ -41,11 +42,14 @@ const RegistrarCliente = () => {
 
     // Crear el usuario en la API
     try {
-      const { data } = await clienteAxios.post(`/usuarios`, {
+      const { data } = await clienteAxios.post(`/clientes`, {
         nombre,
+        apellido,
         email,
         password,
       });
+
+
 
       setAlerta({
         msg: data.msg,
@@ -53,6 +57,7 @@ const RegistrarCliente = () => {
       });
 
       setNombre("");
+      setApellido("");
       setEmail("");
       setPassword("");
       setRepetirPassword("");
@@ -79,9 +84,8 @@ const RegistrarCliente = () => {
             id="nombre"
             type="text"
             placeholder="Tu Nombre"
-
-            // value={nombre}
-            // onChange={e => setNombre(e.target.value)}
+            value={nombre}
+            onChange={(e) => setNombre(e.target.value)}
           />
         </div>
 
@@ -91,13 +95,12 @@ const RegistrarCliente = () => {
             id="apellidos"
             type="text"
             placeholder="Tu apellidos"
-
-            // value={apellidos}
-            // onChange={e => setApellidos(e.target.value)}
+            value={apellido}
+            onChange={(e) => setApellido(e.target.value)}
           />
         </div>
 
-        <div >
+        <div>
           <label
             className="uppercase text-gray-600 block text-xl font-bold"
             htmlFor="email"
@@ -109,11 +112,11 @@ const RegistrarCliente = () => {
             type="email"
             placeholder="Email de Registro"
             className="w-full mt-3 p-3 border rounded-xl bg-gray-50"
-            // value={email}
-            // onChange={e => setEmail(e.target.value)}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
         </div>
-        <div >
+        <div>
           <label
             className="uppercase text-gray-600 block text-xl font-bold"
             htmlFor="password"
@@ -125,12 +128,12 @@ const RegistrarCliente = () => {
             type="password"
             placeholder="Password de Registro"
             className="w-full mt-3 p-3 border rounded-xl bg-gray-50"
-            // value={password}
-            // onChange={e => setPassword(e.target.value)}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
         </div>
 
-        <div >
+        <div>
           <label
             className="uppercase text-gray-600 block text-xl font-bold"
             htmlFor="password2"
@@ -141,20 +144,13 @@ const RegistrarCliente = () => {
             id="password2"
             type="password"
             placeholder="Repetir tu Password"
-             
-            // value={repetirPassword}
-            // onChange={e => setRepetirPassword(e.target.value)}
+            value={repetirPassword}
+            onChange={(e) => setRepetirPassword(e.target.value)}
           />
         </div>
 
-        <input
-          type="submit"
-          value="Crear Cuenta"
-          className="inputSubmit"
-              />
+        <input type="submit" value="Crear Cuenta" className="inputSubmit" />
       </form>
-
-       
     </div>
   );
 };
