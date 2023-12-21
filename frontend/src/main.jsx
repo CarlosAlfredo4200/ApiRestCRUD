@@ -7,11 +7,11 @@ import store from "../store";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Layout from "./componets/Layout";
-import Clientes from "./pages/Clientes";
-import Productos from "./pages/Productos";
-import Pedidos from "./pages/Pedidos";
-import Home from "./pages/Home";
-import RegistrarCliente from "./pages/RegistrarCliente";
+import Clientes from "./pages/clientes/Clientes.jsx";
+import Productos from "./pages/productos/Productos.jsx";
+import Pedidos from "./pages/pedidos/Pedidos.jsx";
+import Home from "./pages/Home.jsx";
+import RegistrarCliente from "./pages/clientes/RegistrarCliente.jsx";
 
 const router = createBrowserRouter([
   {

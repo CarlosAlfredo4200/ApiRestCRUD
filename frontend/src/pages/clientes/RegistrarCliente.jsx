@@ -1,20 +1,26 @@
 import { useState } from "react";
 import { Link, Form } from "react-router-dom";
-// import Alerta from '../components/Alerta'
-// import clienteAxios from '../config/clienteAxios'
+
+import axios from 'axios';
+
+ 
+ const baseURL = import.meta.env.VITE_BACKEND;
 
 const RegistrarCliente = () => {
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
+  const [edad, setEdad] = useState("");
   const [email, setEmail] = useState("");
+  const [empresa, setEmpresa] = useState("");
   const [password, setPassword] = useState("");
+  const [telefono, setTelefono] = useState("");
   const [repetirPassword, setRepetirPassword] = useState("");
   const [alerta, setAlerta] = useState({});
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if ([nombre, apellido, email, password, repetirPassword].includes("")) {
+    if ([nombre, apellido,edad, email,empresa, password, telefono, repetirPassword].includes("")) {
       setAlerta({
         msg: "Todos los campos son obligatorios",
         error: true,
@@ -42,11 +48,14 @@ const RegistrarCliente = () => {
 
     // Crear el usuario en la API
     try {
-      const { data } = await clienteAxios.post(`/clientes`, {
+      const { data } = await axios.post( `${baseURL}/clientes`, {
         nombre,
         apellido,
+        edad,
         email,
+        empresa,
         password,
+        telefono
       });
 
 
@@ -58,8 +67,11 @@ const RegistrarCliente = () => {
 
       setNombre("");
       setApellido("");
+      setEdad("");
       setEmail("");
+      setEmpresa("");
       setPassword("");
+      setTelefono("");
       setRepetirPassword("");
     } catch (error) {
       setAlerta({
@@ -101,6 +113,17 @@ const RegistrarCliente = () => {
         </div>
 
         <div>
+          <label htmlFor="edad">Edad</label>
+          <input
+            id="edad"
+            type="number"
+            placeholder="Tu edad"
+            value={edad}
+            onChange={(e) => setEdad(e.target.value)}
+          />
+        </div>
+
+        <div>
           <label
             className="uppercase text-gray-600 block text-xl font-bold"
             htmlFor="email"
@@ -116,7 +139,47 @@ const RegistrarCliente = () => {
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
+
+
         <div>
+          <label
+            className="uppercase text-gray-600 block text-xl font-bold"
+            htmlFor="empresa"
+          >
+            Empresa
+          </label>
+          <input
+            id="empresa"
+            type="text"
+            placeholder="Lugar de trabajo"
+            className="w-full mt-3 p-3 border rounded-xl bg-gray-50"
+            value={empresa}
+            onChange={(e) => setEmpresa(e.target.value)}
+          />
+        </div>
+
+        <div>
+
+
+        <div>
+          <label
+            className="uppercase text-gray-600 block text-xl font-bold"
+            htmlFor="telefono"
+          >
+            Telefono
+          </label>
+          <input
+            id="telefono"
+            type="text"
+            placeholder="Telefono"
+            className="w-full mt-3 p-3 border rounded-xl bg-gray-50"
+            value={telefono}
+            onChange={(e) => setTelefono(e.target.value)}
+          />
+        </div>
+
+
+
           <label
             className="uppercase text-gray-600 block text-xl font-bold"
             htmlFor="password"

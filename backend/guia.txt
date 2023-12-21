@@ -1,12 +1,14 @@
-MONGODB_URL=mongodb+srv://root:juanma4200@cluster0.e8yfmqo.mongodb.net/
-PUBLI_URL=http://localhost:4000
-PORT=4000
-NODE_ENV=development
- 
 
-uso de jest para los test:
-    Instalar  = npm install --save-dev jest
-                npm i supertest -D
+MONGODB_URL=mongodb+srv://root:juanma4200@cluster0.e8yfmqo.mongodb.net/
+PUBLI_URL=http://localhost:5000
+
+PORT=5000
+FRONTEND_URL=http://localhost:5173
+
+NODE_ENV=development
+
+
+
 
 modificar package = {
   "scripts": {
@@ -15,3 +17,6 @@ modificar package = {
 }
 
 ejecurar : npm test
+
+
+Solucion cuando no reconoce jest: npm install -g jest
