@@ -2,28 +2,32 @@ const Cliente = require("../models/clientesModels.js");
 const GeneradorId = require("../helpers/generarId.js");
 
 const CrearCliente = async (req, res) => {
+  // Evitar registros duplicados
+  const { email, nombre, apellido, empresa, password, telefono } = req.body;
 
-  // evitar registros duplicados
-
-  const { email } = req.body;
-  const clienteExistente = await Cliente.findOne({email}); //email:email
-
-  if (clienteExistente) {
-    const error = new Error("El cliente ya existe!")
-    return res.status(400).json({ msg: error.message });
-    
+  // Verificar si algún campo requerido está vacío o nulo
+  if (!nombre || !apellido || !email || !empresa || !password || !telefono) {
+    return res.status(400).json({ msg: "Los campos no pueden estar vacíos o nulos" });
   }
-  
+
   try {
+    const clienteExistente = await Cliente.findOne({ email });
+
+    if (clienteExistente) {
+      return res.status(400).json({ msg: "El cliente ya existe!" });
+    }
+
     const cliente = new Cliente(req.body);
     cliente.token = GeneradorId();
     const clienteAlmacenado = await cliente.save();
-    res.json({ msg: "El registro satisfactorio!" });
+    return res.json({ msg: "El registro satisfactorio!" });
   } catch (error) {
     console.error(error);
-     
+    // Manejar el error si ocurre durante el proceso de creación del cliente
+    return res.status(500).json({ msg: "Hubo un error al procesar la solicitud" });
   }
 };
+
 
 
 const AutenticarCliente = async (req, res) => {
